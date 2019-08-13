@@ -29,13 +29,13 @@ if($jlhrecord > 0){
 	$_SESSION['level']		=$level;
 	// die(var_dump($level));
 	//redirect level
-		if($level=='admin'){
+		if($level=='Admin'){
 			echo 'Anda berhasil login sebagai admin';
-			header('Location:../admin/dashboard.php');
+			header('Location:../admin/index.php');
 		}
-			elseif($level=='user'){
+			elseif($level=='User'){
             echo 'Anda berhasil Login sebagai user';
-			header('Location:../user/index.php?content=dashboard');
+			header('Location:../user/index.php');
 		}
 }
 
