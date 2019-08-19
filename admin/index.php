@@ -56,7 +56,7 @@
 
           <li>
             <a href="index.php?content=user">
-              <i class="fa fa-users fa-fw"></i>
+              <i class="now-ui-icons users_single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
@@ -141,6 +141,12 @@
                                         include 'user.php';
                                     if ($content=='setting')
                                         include 'setting.php';
+                                    if ($content=='tambah_user')
+                                        include 'tambah_user.php';
+                                    // if ($content=='setting')
+                                    //     include 'setting.php';
+                                    // if ($content=='setting')
+                                    //     include 'setting.php';
                                 ?>
                                 </div>
                             </div>

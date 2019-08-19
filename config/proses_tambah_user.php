@@ -10,7 +10,7 @@
 	$level		   	= $_POST["level"];
 
 	$insert			= "INSERT INTO user VALUES ('','$nama','$username','$password','$level')";
-
+	// die(var_dump($insert));
 	$simpan			= mysqli_query($konek, $insert)or die(mysqli_error($konek));
 
 	echo "<br><br><br><strong><center><i>Data berhasil ditambah!";

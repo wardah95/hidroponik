@@ -51,11 +51,9 @@
 </div>
   </div>
 
-  <div class="container">
-  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
+    <form method="POST" action="../config/proses_tambah_user.php">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Tambah User</h4>
@@ -80,11 +78,13 @@
                     <option>User</option>        
                 </SELECT>            
             </div>
-        <div class="modal-footer">
+          <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" method="POST" onclick="window.location.href='../config/proses_tambah_user.php'">Add</button>
+          <button type="submit" class="btn btn-primary" method="POST">Add</button>
+          </div>
         </div>
+      </form>
       </div>
-    </div>
-  </div>  
-</div>
+    </div>  
+  </div>
+
