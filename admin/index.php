@@ -56,7 +56,7 @@
 
           <li>
             <a href="index.php?content=user">
-              <i class="now-ui-icons users_single-02"></i>
+              <i class="now-ui-icons business_badge"></i>
               <p>Manajemen User</p>
             </a>
           </li>
@@ -92,17 +92,7 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form>
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <ul class="navbar-nav">
+              <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
                   <i class="now-ui-icons users_single-02"></i>
@@ -141,8 +131,8 @@
                                         include 'user.php';
                                     if ($content=='setting')
                                         include 'setting.php';
-                                    if ($content=='tambah_user')
-                                        include 'tambah_user.php';
+                                    if ($content=='edit_user')
+                                        include 'edit_user.php';
                                     // if ($content=='setting')
                                     //     include 'setting.php';
                                     // if ($content=='setting')
