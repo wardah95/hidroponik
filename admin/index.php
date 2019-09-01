@@ -57,7 +57,7 @@
           <li>
             <a href="index.php?content=user">
               <i class="now-ui-icons users_single-02"></i>
-              <p>User Profile</p>
+              <p>Manajemen User</p>
             </a>
           </li>
 
