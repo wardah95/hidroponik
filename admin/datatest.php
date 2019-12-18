@@ -1,9 +1,9 @@
-    <div class="content">
+<div class="content">
     <div class="row">
         <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="text-center"> Manajemen User </h4>
+                <h4 class="text-center"> DATATES </h4>
                 <button class="btn btn-primary btn-fill" data-toggle="modal" data-target="#myModal"><i class="now-ui-icons users_single-02"></i> &nbsp USER</button> 
             </div>
             <div class="card-body">
@@ -54,7 +54,7 @@
     <form method="POST" action="../config/proses_tambah_user.php">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Input User</h4>
+          <h4 class="modal-title">edit User</h4>
         </div>
         <div class="modal-body">
             <div class="form-group">

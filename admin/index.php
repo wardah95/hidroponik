@@ -41,8 +41,8 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">CT</a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">Creative Tim</a>
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini">Admin</a>
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">BPTP</a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
 
@@ -53,18 +53,53 @@
               <p>Dashboard admin</p>
             </a>
           </li>
-
+          
           <li>
             <a href="index.php?content=user">
               <i class="now-ui-icons business_badge"></i>
               <p>Manajemen User</p>
             </a>
           </li>
-
+          
           <li>
             <a href="index.php?content=setting">
               <i class="now-ui-icons loader_gear"></i>
               <p>Setting TDS</p>
+            </a>
+          </li>
+
+          <li>
+            <a href="index.php?content=dataset">
+              <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
+              <p>Dataset</p>
+            </a>
+          </li>
+
+          <!-- <li>
+            <a href="index.php?content=datatest">
+              <i class="now-ui-icons design-2_ruler-pencil"></i>
+              <p>Datatest</p>
+            </a>
+          </li> -->
+
+          <li>
+            <a href="index.php?content=penguji">
+              <i class="now-ui-icons loader_refresh"></i>
+              <p>Penguji</p>
+            </a>
+          </li>
+
+          <li>
+            <a href="index.php?content=hasil">
+              <i class="now-ui-icons files_single-copy-04"></i>
+              <p>Hasil</p>
+            </a>
+          </li>
+
+          <li>
+            <a href="index.php?content=Tabel">
+              <i class="now-ui-icons loader_gear"></i>
+              <p>Tabel</p>
             </a>
           </li>
 
@@ -116,8 +151,8 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-lg">
-        <canvas id="bigDashboardChart"></canvas>
+      <div class="panel-header ">
+      
       </div>
 
       <div class="content">
@@ -131,12 +166,36 @@
                                         include 'user.php';
                                     if ($content=='setting')
                                         include 'setting.php';
+                                    if ($content=='dataset')
+                                        include 'dataset.php'; 
+                                    if ($content=='datatest')
+                                        include 'datatest.php'; 
+                                    if ($content=='penguji')
+                                        include 'penguji.php'; 
+                                    if ($content=='hasil')
+                                        include 'hasil.php'; 
+
+
                                     if ($content=='edit_user')
                                         include 'edit_user.php';
-                                    // if ($content=='setting')
-                                    //     include 'setting.php';
-                                    // if ($content=='setting')
-                                    //     include 'setting.php';
+                                    if ($content=='edit_setting')
+                                        include 'edit_setting.php';
+
+                                    
+
+                                    // if ($content=='edit_setting')
+                                    //     include 'edit_setting.php'; 
+                                    // if ($content=='edit_setting')
+                                    //     include 'edit_setting.php'; 
+                                    // if ($content=='edit_setting')
+                                    //     include 'edit_setting.php'; 
+                                    // if ($content=='edit_setting')
+                                    //     include 'edit_setting.php';
+
+
+
+                                    if ($content=='Tabel')
+                                        include 'tabel.php';
                                 ?>
                                 </div>
                             </div>
