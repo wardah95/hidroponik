@@ -26,19 +26,37 @@ include 'config/koneksi.php';
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+<style>
+.container-login100::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #005bea;
+    background: -webkit-linear-gradient(bottom, #067532, #049c1e);
+    background: -o-linear-gradient(bottom, #005bea, #00c6fb);
+    background: -moz-linear-gradient(bottom, #005bea, #00c6fb);
+    background: linear-gradient(bottom, #005bea, #00c6fb);
+    opacity: 0.9;
+}
+</style>
 </head>
 <body>
 	
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/img-01.jpg');">
-			<div class="wrap-login100 p-t-190 p-b-30">
+			<div class="wrap-login100 p-b-30">
 				<form action="config/login.php" method="POST" class="login100-form validate-form">
 					<div class="login100-form-avatar">
 						<img src="images/kementrianpertanian.png" alt="LOGO">
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
-						LOGIN KONTROLING HIDROPONIK
+						LOGIN MONITORING HIDROPONIK
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">

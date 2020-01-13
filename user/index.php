@@ -1,7 +1,24 @@
+<?php
+  
+  include '../config/koneksi.php';
+  session_start();
+    $nama = $_SESSION['nama'];
+
+  if(isset($_GET['content'])) $content = $_GET['content']; 
+      else $content = "index";
+      $sql      = "SELECT * FROM user where nama = '$nama'";
+      $query    = mysqli_query($konek, $sql)or die(mysqli_error());
+      $data     = mysqli_fetch_array($query);
+    
+?>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap Template | Design Studio</title>
+    <title>MONITORING HIDROPONIK</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,6 +48,15 @@
     <script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="script/all-plugins.js"></script>
     <script type="text/javascript" src="script/plugin-active.js"></script>
+    <style>
+    #HeroBanner {
+	display: table;
+	width: 100%;
+	height: 100vh;
+	background: url(images/green.jpg)no-repeat 0 0 / cover;
+	background-attachment: fixed;
+}
+    </style>
 </head>
 <body data-spy="scroll" data-target=".main-navigation" data-offset="150">
     <section id="MainContainer">
@@ -39,26 +65,23 @@
             <nav class="main-navigation">
                 <div class="container clearfix">
                     <div class="site-logo-wrap">
-                        <a class="logo" href="#"><img src="images/ds-logo.svg" alt="Design Studio"></a>
+                        <a class="logo" href="http://jakarta.litbang.pertanian.go.id/ind/"><img src="images/kementrianpertanian.png" alt="LOGO"></a>
                     </div>
                     <a href="javascript:void(0)" class="menu-trigger hidden-lg-up"><span>&nbsp;</span></a>
                     <div class="main-menu hidden-md-down">
                         <ul class="menu-list">
                             <li><a class="nav-link" href="javascript:void(0)" data-target="#HeroBanner">Home</a></li>
-                            <li><a class="nav-link" href="javascript:void(0)" data-target="#Services">Services</a></li>
-                            <li><a class="nav-link" href="javascript:void(0)" data-target="#About">About</a></li>
-                            <li><a class="nav-link" href="javascript:void(0)" data-target="#Portfolio">Portfolio</a></li>
-                            <li><a class="nav-link" href="javascript:void(0)" data-target="#ContactUs">Contact</a></li>
+                            <li><a class="nav-link" href="javascript:void(0)" data-target="#Services">Monitoring</a></li>
+                            <li><a class="nav-link" href="javascript:void(0)" data-target="#Portfolio">Histori</a></li>
+                            <li><a class="nav-link" href=../config/logout.php>LogOut</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="mobile-menu hidden-lg-up">
                     <ul class="mobile-menu-list">
                         <li><a class="nav-link" href="javascript:void(0)" data-target="#HeroBanner">Home</a></li>
-                        <li><a class="nav-link" href="javascript:void(0)" data-target="#Services">Services</a></li>
-                        <li><a class="nav-link" href="javascript:void(0)" data-target="#About">About</a></li>
-                        <li><a class="nav-link" href="javascript:void(0)" data-target="#Portfolio">Portfolio</a></li>
-                        <li><a class="nav-link" href="javascript:void(0)" data-target="#ContactUs">Contact</a></li>
+                        <li><a class="nav-link" href="javascript:void(0)" data-target="#Services">Monitoring</a></li>
+                        <li><a class="nav-link" href="javascript:void(0)" data-target="#Portfolio">Histori</a></li>
                     </ul>
                 </div>
             </nav>
@@ -67,250 +90,242 @@
         <!-- Banner starts here -->
         <section id="HeroBanner">
             <div class="hero-content">
-                <h1>Welcome to my site</h1>
-                <p>We are team of talanted designers making websites with Bootstrap</p>
-                <a href="#" class="hero-cta">Get Started</a>
+                <p>Selamat datang <?php echo $data['nama'] ?> di Monitoring Hidroponik</p>
+                <p>Badan Penelitian dan Teknologi Pertanian</p>
+                <!-- <p>Apakah saudara <?php echo $data['nama'] ?> akan melakukan penanaman </p>
+                <a class="btn btn-success btn-fill" data-toggle="modal" data-target="#tanaman">Get Started</a> -->
             </div>
         </section>
+        <!-- modal mulai menanam -->
+  <div class="modal fade" id="tanaman" role="dialog">
+    <div class="modal-dialog">
+    <form method="POST" action="../config/mulai_tanam.php">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Memulai Menanam</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Nama Penanaman</label>
+                <input type="text" class="form-control" placeholder="Nama" name="nama" required>
+                <input type="hidden" value=<?php echo $data['id_user'] ?> name="user">
+            </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" method="POST">Mulai</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>  
+  </div>
         <!-- Banner ends here -->
         <!-- Services section starts here -->
+<?php
+include '../config/koneksi.php';
+
+$view    = "SELECT * FROM tabel order by id_tabel desc limit 1";
+$hasil   = mysqli_query($konek, $view)or die(mysql_error());
+$tampil    = mysqli_fetch_array($hasil);
+?>
         <section id="Services">
             <div class="container">
                 <div class="block-heading">
-                    <h2>Services</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h2>Monitoring Tanaman</h2>
+                    <!-- <p>munculin namanya dan minggu</p> -->
                 </div>
                 <div class="services-wrapper">
                     <div class="each-service">
-                        <div class="service-icon"><i class="fa fa-desktop" aria-hidden="true"></i></div>
-                        <h5 class="service-title">LOREM IPSUM</h5>
-                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <h5 class="service-title">Minggu Ke - </h5>
+                        <p class="service-description"><?php echo $tampil['waktu'] ?></p>
                     </div>
                     <div class="each-service">
-                        <div class="service-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
-                        <h5 class="service-title">LOREM IPSUM</h5>
-                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <h5 class="service-title">Suhu</h5>
+                        <p class="service-description"><?php echo $tampil['suhu'] ?> °C </p>
                     </div>
                     <div class="each-service">
-                        <div class="service-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
-                        <h5 class="service-title">LOREM IPSUM</h5>
-                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <h5 class="service-title">Kelembaban</h5>
+                        <p class="service-description"><?php echo $tampil['kelembaban'] ?> %</p>
                     </div>
                     <div class="each-service">
-                        <div class="service-icon"><i class="fa fa-university" aria-hidden="true"></i></div>
-                        <h5 class="service-title">LOREM IPSUM</h5>
-                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <h5 class="service-title">Nurtrisi</h5>
+                        <p class="service-description"><?php echo $tampil['nutrisi'] ?> PPM</p>
+                    </div>
+                    
+                </div>
+
+                <div class="services-wrapper">
+                    <div class="each-service">
+                        <h5 class="service-title">Derajat Keanggotaan</h5>
                     </div>
                     <div class="each-service">
-                        <div class="service-icon"><i class="fa fa-camera-retro" aria-hidden="true"></i></div>
-                        <h5 class="service-title">LOREM IPSUM</h5>
-                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <h5 class="service-title">Suhu</h5>
+                        <p class="service-description"><?php echo $tampil['das'] ?></p>
                     </div>
                     <div class="each-service">
-                        <div class="service-icon"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
-                        <h5 class="service-title">LOREM IPSUM</h5>
-                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <h5 class="service-title">Kelembaban</h5>
+                        <p class="service-description"><?php echo $tampil['dak'] ?> </p>
+                    </div>
+                    <div class="each-service">
+                        <h5 class="service-title">Nurtrisi</h5>
+                        <p class="service-description"><?php echo $tampil['dan'] ?> </p>
                     </div>
                 </div>
-            </div>
+                
+                <div class="services-wrapper">
+                    <div class="each-service">
+                        <h5 class="service-title">Kondisi Pertumbuhan</h5>
+                        <p class="service-description"><?php echo $tampil['hasil'] ?></p>
+                    </div>
+                    <div class="each-service">
+                        <h5 class="service-title">Suhu</h5>
+                        <p class="service-description"><?php echo $tampil['ktgs'] ?></p>
+                    </div>
+                    <div class="each-service">
+                        <h5 class="service-title">Kelembaban</h5>
+                        <p class="service-description"><?php echo $tampil['ktgk'] ?></p>
+                    </div>
+                    <div class="each-service">
+                        <h5 class="service-title">Nurtrisi</h5>
+                        <p class="service-description"><?php echo $tampil['ktgn'] ?></p>
+                    </div>
+                    
+                </div>
+                <!-- <!-- <div class="services-wrapper">
+                    <div class="each-service">
+                        <h5 class="service-title">Suhu</h5>
+                        <p class="service-description">Grafik harian</p>
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<!-- <script type="text/javascript">
+
+Highcharts.chart('container', {
+
+title: {
+  text: 'Monitoring Suhu'
+},
+
+xAxis: {
+  tickInterval: 1,
+  type: 'logarithmic'
+},
+
+yAxis: {
+  type: 'logarithmic',
+  minorTickInterval: 0.1
+},
+
+tooltip: {
+  headerFormat: '<b>{series.name}</b><br />',
+  pointFormat: 'x = {point.x}, y = {point.y}'
+},
+
+series: [{
+  data: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+  pointStart: 1
+}]
+});
+</script> -->
+
+                    </div>
+                </div> -->
+                <!-- <div class="services-wrapper">
+                    <div class="each-service">
+                        <h5 class="service-title">Kelembaban</h5>
+                        <p class="service-description">Grafik harian</p>
+                    </div>
+                </div>
+                <div class="services-wrapper">
+                    <div class="each-service">
+                        <h5 class="service-title">Nurtrisi</h5>
+                        <p class="service-description">Grafik harian</p>
+                    </div>
+                </div>
+            </div> --> -->
         </section>
         <!-- Services section ends here -->
-        <!-- About Us section starts here -->
-        <section id="About">
-            <div class="container">
-                <div class="about-wrapper">
-                    <h2>About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-        </section>
-        <!-- About Us section ends here -->
         <!-- Portfolio section starts here -->
         <section id="Portfolio">
             <div class="container">
                 <div class="block-heading">
-                    <h2>Portfolio</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h2>Histori</h2>
+                    <div class="content">
+    <div class="card-header">
+        <h2 class="text-center"> Hasil Kondisi Tanaman </h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table">
+            <thead class=" text-primary" align="center">
+                <tr>
+                <td rowspan="2"><b>Waktu</b></td>
+                <td colspan="3"><b>Monitorinng</b></td>
+                <td colspan="3"><b>Derajat Keanggotaan</b></td>
+                <td colspan="3"><b>Katagori</b></td>
+                <td rowspan="2"><b>Hasil</b></td>
+                </tr>
+                <tr>
+                <td><b>Suhu</b></td>
+                <td><b>Kelembaban</b></td>
+                <td><b>Nutrisi</b></td>
+                <td><b>Suhu</b></td>
+                <td><b>Kelembaban</b></td>
+                <td><b>Nutrisi</b></td>
+                <td><b>Suhu</b></td>
+                <td><b>Kelembaban</b></td>
+                <td><b>Nutrisi</b></td>
+                <td><b></b></td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+          //error_reporting(0);
+
+            include '../config/koneksi.php';
+
+            $query = mysqli_query($konek, "SELECT * FROM tabel")or die(mysqli_error());
+                    if(mysqli_num_rows($query) == 0){ 
+                      echo '<tr><td colspan="4" align="center">Tidak ada data!</td></tr>';    
+                    }
+                      else
+                    { 
+                      $no = 1;        
+                      while($data = mysqli_fetch_array($query)){  
+                echo '<tr align="center">';
+                echo '<td>'.$data['waktu'].'</td>';
+                echo '<td>'.$data['kelembaban'].'</td>';
+                echo '<td>'.$data['suhu'].'</td>';
+                echo '<td>'.$data['nutrisi'].'</td>';
+                echo '<td>'.$data['das'].'</td>';
+                echo '<td>'.$data['dan'].'</td>';
+                echo '<td>'.$data['dak'].'</td>';
+                echo '<td>'.$data['ktgs'].'</td>';
+                echo '<td>'.$data['ktgk'].'</td>';
+                echo '<td>'.$data['ktgn'].'</td>';
+                echo '<td>'.$data['hasil'].'</td>';
+                echo '</tr>';  
+                      }
+                    }
+                // die(var_dump($data));
+                ?>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
                 </div>
                 <div class="portfolio-wrapper clearfix">
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-one.jpg">
-                    <img src="images/p-one.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                            <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-two.jpg">
-                    <img src="images/p-two.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-three.jpg">
-                    <img src="images/p-three.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                       <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-four.jpg">
-                    <img src="images/p-four.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-five.jpg">
-                    <img src="images/p-five.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-six.jpg">
-                    <img src="images/p-six.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-one.jpg">
-                    <img src="images/p-one.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-two.jpg">
-                    <img src="images/p-two.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                           <h5 class="p-title">Title</h5>
-                           <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
-                    <a class="each-portfolio" data-fancybox="gallery" href="images/p-three.jpg">
-                    <img src="images/p-three.jpg" alt="p-one">
-                    <div class="hover-cont-wrap">
-                        <div class="hover-cont-block">
-                            <h5 class="p-title">Title</h5>
-                            <div class="p-desc">
-                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                                <div class="icon-div"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                   </a>
                 </div>
             </div>
         </section>
         <!-- Portfolio section ends here -->
-        <section id="Testimonial">
-          <div class="testimonial-wrap">
-          <div class="container">
-            <div class="block-heading">
-              <h2>What Clients Say About Us</h2>
-            </div>
-            <ul class="testimonial-slider">
-              <li>" I would like to thank Click and the team for the fantastic work<br> on content writing for my site. "</li>
-              <li>" I'd say that the team is excellent and it is some of the best service<br> I have received both online and offline in a long time. "</li>
-              <li>" It's been great working with you. The content is also great. I can certainly recommend your<br> services to others as cost effective services. "</li>
-            </ul>
-          </div>
-        </div>
-        </section>
-        <!-- Contact us section starts here -->
-        <section id="ContactUs">
-            <div class="container contact-container">
-                <h3 class="contact-title">Get In Touch</h3>
-                <div class="contact-outer-wrapper">
-                    <div class="address-block">
-                        <p class="add-title">Contact Details</p>
-                        <div class="c-detail">
-                            <span class="c-icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span> <span class="c-info">12 Avenue center, st. marks road, CA</span>
-                        </div>
-                        <div class="c-detail">
-                            <span class="c-icon"><i class="fa fa-phone" aria-hidden="true"></i></span> <span class="c-info">+41982399090000</span>
-                        </div>
-                        <div class="c-detail">
-                            <span class="c-icon"><i class="fa fa-envelope" aria-hidden="true"></i></span> <span class="c-info">click@gmail.com</span>
-                        </div>
-                    </div>
-                    <div class="form-wrap">
-                        <p class="add-title">Send Us Message</p>
-                        <form>
-                            <div class="fname floating-label">
-                                <input type="text" class="floating-input" name="full name" id="full-name-field" />
-                                <label for="full-name-field">Full Name</label>
-                            </div>
-                            <div class="email floating-label">
-                                <input type="email" class="floating-input" name="email" id="mail-field" />
-                                <label for="mail-field">Email</label>
-                            </div>
-                            <div class="contact floating-label">
-                                <input type="tel" class="floating-input" name="contact" id="contact-us-field" />
-                                <label for="contact-us-field">Contact</label>
-                            </div>
-                            <div class="company floating-label">
-                                <input type="text" class="floating-input" name="company" id="company-field" />
-                                <label for="company-field">Company</label>
-                            </div>
-                            <div class="user-msg floating-label">
-                                <textarea class="floating-input" name="user message" id="user-msg-field"></textarea>
-                                <label for="user-msg-field" class="msg-label">Your Message</label>
-                            </div>
-                            <div class="submit-btn">
-                                <button type="submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Contact us section ends here -->
         <!-- Footer section starts here -->
         <footer id="Footer">
-            <div class="container">
+            <!-- <div class="container">
                 <div class="social-share">
                     <ul>
                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -318,7 +333,7 @@
                         <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                         <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="footer-logo-wrap">
                     Design Studio &copy; 2018. Designed by <a href="https://www.position2.com/">Position2</a>
                 </div>

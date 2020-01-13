@@ -32,6 +32,24 @@
   <link href="assets/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <style>
+    @media (min-width: 991px) {
+  .sidebar{
+    display: block;
+    box-shadow: $sidebar-box-shadow;
+  }
+}
+
+.panel-header {
+    height:0px;
+  padding-top: 80px;
+  padding-bottom: 45px;
+  background: #141E30;  /* fallback for old browsers */
+  background: -webkit-gradient(linear, left top, right top, from(#0c2646), color-stop(60%, #204065), to(#2a5788));
+  background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
+  position: relative;
+  overflow: hidden;}
+    </style>
 </head>
 
 <body class="">
@@ -47,8 +65,8 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
 
         <ul class="nav">
-          <li class="active ">
-            <a href="./index.php">
+          <li>
+            <a href="index.php?content=dashboard">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard admin</p>
             </a>
@@ -61,12 +79,12 @@
             </a>
           </li>
           
-          <li>
-            <a href="index.php?content=setting">
+           <li> 
+            <a href="index.php?content=grafik">
               <i class="now-ui-icons loader_gear"></i>
-              <p>Setting TDS</p>
+              <p>grafik</p>
             </a>
-          </li>
+          </li> 
 
           <li>
             <a href="index.php?content=dataset">
@@ -95,13 +113,13 @@
               <p>Hasil</p>
             </a>
           </li>
-
+<!-- 
           <li>
             <a href="index.php?content=Tabel">
               <i class="now-ui-icons loader_gear"></i>
               <p>Tabel</p>
             </a>
-          </li>
+          </li> -->
 
         </ul>
       </div>
@@ -119,7 +137,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a>Selamat datang di Kontroling Hidroponik anda sebagai admin</a>
+            <a>Selamat datang di Monitoring Hidroponik anda sebagai admin</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -162,6 +180,9 @@
                         <div class="card">
                             <div class="content">
                                 <?php
+                                    
+                                    if ($content=='dashboard')
+                                        include 'dashboard.php';
                                     if ($content=='user')
                                         include 'user.php';
                                     if ($content=='setting')
@@ -183,10 +204,9 @@
 
                                     
 
-                                    // if ($content=='edit_setting')
-                                    //     include 'edit_setting.php'; 
-                                    // if ($content=='edit_setting')
-                                    //     include 'edit_setting.php'; 
+                                    if ($content=='grafik')
+                                        include 'grafik.php'; 
+                                     
                                     // if ($content=='edit_setting')
                                     //     include 'edit_setting.php'; 
                                     // if ($content=='edit_setting')
