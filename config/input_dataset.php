@@ -7,11 +7,10 @@
 	$suhu		   	= $_POST["suhu"];
 	$kelembaban	   	= $_POST["kelembaban"];
 	$nutrisi  		= $_POST["nutrisi"];
-	$minggu 	   	= $_POST["minggu"];
     $kondisi  		= $_POST["kondisi"];
     
     
-	$insert			= "INSERT INTO dataset VALUES ('$suhu','$kelembaban','$nutrisi','$minggu','$kondisi')";
+	$insert			= "INSERT INTO dataset VALUES ('$suhu','$kelembaban','$nutrisi','$kondisi')";
 	// die(var_dump($insert));
 	$simpan			= mysqli_query($konek, $insert)or die(mysqli_error($konek));
 

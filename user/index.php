@@ -12,10 +12,6 @@
     
 ?>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<!DOCTYPE html>
 <html>
 <head>
     <title>MONITORING HIDROPONIK</title>
@@ -71,6 +67,8 @@
                     <div class="main-menu hidden-md-down">
                         <ul class="menu-list">
                             <li><a class="nav-link" href="javascript:void(0)" data-target="#HeroBanner">Home</a></li>
+                            <li><a class="nav-link" href="javascript:void(0)" data-target="#tanaman">Tanaman</a></li>
+                            <li><a class="nav-link" href="javascript:void(0)" data-target="#perhitungan">Perhitungan</a></li>
                             <li><a class="nav-link" href="javascript:void(0)" data-target="#Services">Monitoring</a></li>
                             <li><a class="nav-link" href="javascript:void(0)" data-target="#Portfolio">Histori</a></li>
                             <li><a class="nav-link" href=../config/logout.php>LogOut</a></li>
@@ -80,6 +78,8 @@
                 <div class="mobile-menu hidden-lg-up">
                     <ul class="mobile-menu-list">
                         <li><a class="nav-link" href="javascript:void(0)" data-target="#HeroBanner">Home</a></li>
+                        <li><a class="nav-link" href="javascript:void(0)" data-target="#tanaman">Tanaman</a></li>
+                        <li><a class="nav-link" href="javascript:void(0)" data-target="#perhitungan">Perhitungan</a></li>
                         <li><a class="nav-link" href="javascript:void(0)" data-target="#Services">Monitoring</a></li>
                         <li><a class="nav-link" href="javascript:void(0)" data-target="#Portfolio">Histori</a></li>
                     </ul>
@@ -92,8 +92,8 @@
             <div class="hero-content">
                 <p>Selamat datang <?php echo $data['nama'] ?> di Monitoring Hidroponik</p>
                 <p>Badan Penelitian dan Teknologi Pertanian</p>
-                <!-- <p>Apakah saudara <?php echo $data['nama'] ?> akan melakukan penanaman </p>
-                <a class="btn btn-success btn-fill" data-toggle="modal" data-target="#tanaman">Get Started</a> -->
+                <p>Apakah saudara <?php echo $data['nama'] ?> akan melakukan penanaman </p>
+                <a class="btn btn-success btn-fill" data-toggle="modal" data-target="#tanaman">Get Started</a> 
             </div>
         </section>
         <!-- modal mulai menanam -->
@@ -107,7 +107,20 @@
         <div class="modal-body">
             <div class="form-group">
                 <label>Nama Penanaman</label>
-                <input type="text" class="form-control" placeholder="Nama" name="nama" required>
+                <input type="text" class="form-control" placeholder="Nama Projek Penanaman" name="nama" required>
+                <label>Jenis Tanaman</label>
+                <select class="form-control" name="jenis" >
+                    <?php
+                        $jenis = "SELECT * FROM jenis";
+                        $queryjns = mysqli_query($konek,$jenis);
+                        while ($datajns = mysqli_fetch_array($queryjns)) { ?>
+                        <option value="<?php echo $datajns['id_jenis'] ?>"> <?php echo $datajns['jenis'] ?>
+                        </option>
+                        <?php
+                        }
+                        ?>
+                                                    
+                </select>
                 <input type="hidden" value=<?php echo $data['id_user'] ?> name="user">
             </div>
           <div class="modal-footer">
@@ -120,14 +133,211 @@
     </div>  
   </div>
         <!-- Banner ends here -->
-        <!-- Services section starts here -->
 <?php
 include '../config/koneksi.php';
 
-$view    = "SELECT * FROM tabel order by id_tabel desc limit 1";
-$hasil   = mysqli_query($konek, $view)or die(mysql_error());
-$tampil    = mysqli_fetch_array($hasil);
+$view       = "SELECT * FROM tabel order by id_tabel desc limit 1";
+$hasil      = mysqli_query($konek, $view)or die(mysql_error());
+$tampil     = mysqli_fetch_array($hasil);
+$view1       = "SELECT a.*, b.id_jenis, b.status FROM jenis a, tanaman b WHERE a.id_jenis=b.id_jenis and b.status='1'";
+$hasil1      = mysqli_query($konek, $view1)or die(mysql_error());
+$tamp     = mysqli_fetch_array($hasil1);
+
 ?>
+        
+        <!-- tanaman section starts here -->
+        <section id="tanaman">
+            <div class="container">
+                <div class="block-heading">
+                    <h2></h2>
+                    <div class="content">
+    <div class="card-header">
+        <h2 class="text-center"> Batasan Tanaman <?php echo $tamp['jenis'] ?> </h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <br>
+        <h5 align="left">Tabel Variabel Suhu</h5><br>
+
+        <table class="table">
+            <thead class="text-primary" align="center">
+                <tr>
+                <td colspan="3"><b>Dingin</b></td>
+                <td colspan="3"><b>Sejuk</b></td>
+                <td colspan="3"><b>Panas</b></td>
+                </tr>
+                <tr>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td align="center"><?php echo $tamp['dingB'] ?> °C</td>
+                <td align="center"><?php echo $tamp['dingT'] ?> °C</td>
+                <td align="center"><?php echo $tamp['dingA'] ?> °C</td>
+                <td align="center"><?php echo $tamp['sejB'] ?> °C</td>
+                <td align="center"><?php echo $tamp['sejT'] ?> °C</td>
+                <td align="center"><?php echo $tamp['sejA'] ?> °C</td>
+                <td align="center"><?php echo $tamp['panB'] ?> °C</td>
+                <td align="center"><?php echo $tamp['panT'] ?> °C</td>
+                <td align="center"><?php echo $tamp['panA'] ?> °C</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <h5 align="left">Tabel Variabel Kelembaban</h5><br>
+        <table class="table">
+            <thead class="text-primary" align="center">
+                <tr>
+                <td colspan="3"><b>Kering</b></td>
+                <td colspan="3"><b>Normal</b></td>
+                <td colspan="3"><b>Lembab</b></td>
+                </tr>
+                <tr>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td align="center"><?php echo $tamp['kerB'] ?> %</td>
+                <td align="center"><?php echo $tamp['kerT'] ?> %</td>
+                <td align="center"><?php echo $tamp['kerA'] ?> %</td>
+                <td align="center"><?php echo $tamp['norB'] ?> %</td>
+                <td align="center"><?php echo $tamp['norT'] ?> %</td>
+                <td align="center"><?php echo $tamp['norA'] ?> %</td>
+                <td align="center"><?php echo $tamp['lemB'] ?> %</td>
+                <td align="center"><?php echo $tamp['lemT'] ?> %</td>
+                <td align="center"><?php echo $tamp['lemA'] ?> %</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <h5 align="left">Tabel Variabel Nutrisi</h5><br>
+        <table class="table">
+            <thead class="text-primary"align="center">
+                <tr>
+                <td colspan="3"><b>Kurang</b></td>
+                <td colspan="3"><b>Cukup</b></td>
+                <td colspan="3"><b>Berlebih</b></td>
+                </tr>
+                <tr>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                <td><b>Atas</b></td>
+                <td><b>Tenggah</b></td>
+                <td><b>Bawah</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td align="center"><?php echo $tamp['kurB'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['kurT'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['kurA'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['cupB'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['cupT'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['cupA'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['lebB'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['lebT'] ?> ppm</td>
+                <td align="center"><?php echo $tamp['lebA'] ?> ppm</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+                </div>
+                <div class="portfolio-wrapper clearfix">
+                </div>
+            </div>
+        </section>
+        <!-- Tanaman section ends here -->
+                <!-- perhitungan section starts here -->
+                <section id="perhitungan">
+            <div class="container">
+                <div class="block-heading">
+                    <h2></h2>
+                    <div class="content">
+    <div class="card-header">
+        <h2 class="text-center"> Perhitungan Fuzzy Logic </h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table">
+            <thead class="text-primary" align="center">
+                <tr>
+                <td></td>
+                <td><b>Suhu</b></td>
+                <td><b>Kelembaban</b></td>
+                <td><b>Nutrisi</b></td>
+                </tr>
+                <tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td class="text-primary"><b>Kondisi</b></td>
+                <td align="center"><?php echo $tampil['suhu'] ?> °C</td>
+                <td align="center"><?php echo $tampil['kelembaban'] ?> %</td>
+                <td align="center"><?php echo $tampil['nutrisi'] ?> ppm</td>
+                </tr>
+                <tr>
+                <td class="text-primary"><b>Katagori</b></td>
+                <td align="center"><?php echo $tampil['ktgs'] ?></td>
+                <td align="center"><?php echo $tampil['ktgk'] ?></td>
+                <td align="center"><?php echo $tampil['ktgn'] ?></td>
+                </tr>
+                <tr>
+                <td class="text-primary"><b>Rumus</b></td>
+                <td align="center"><?php echo $tampil['rmss'] ?></td>
+                <td align="center"><?php echo $tampil['rmsk'] ?></td>
+                <td align="center"><?php echo $tampil['rmsn'] ?></td>
+                </tr>
+                <tr>
+                <td class="text-primary"><b>Perhitungan</b></td>
+                <td align="center"><?php echo $tampil['hitungs'] ?></td>
+                <td align="center"><?php echo $tampil['hitungk'] ?></td>
+                <td align="center"><?php echo $tampil['hitungn'] ?></td>
+                </tr>
+                <tr>
+                <td class="text-primary"><b>Derajat Keanggotaan</b></td>
+                <td align="center"><?php echo $tampil['das'] ?></td>
+                <td align="center"><?php echo $tampil['dak'] ?></td>
+                <td align="center"><?php echo $tampil['dan'] ?></td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Kondisi Pertumbuhan : <font color="#00FF00"> <?php echo $tampil['hasil'] ?></font> </h4>
+        </div>
+    </div>
+</div>
+                </div>
+                <div class="portfolio-wrapper clearfix">
+                </div>
+            </div>
+        </section>
+        <!-- perhitungan section ends here -->
+
+        <!-- Services section starts here -->
+
         <section id="Services">
             <div class="container">
                 <div class="block-heading">
@@ -136,7 +346,7 @@ $tampil    = mysqli_fetch_array($hasil);
                 </div>
                 <div class="services-wrapper">
                     <div class="each-service">
-                        <h5 class="service-title">Minggu Ke - </h5>
+                        <h5 class="service-title">Waktu </h5>
                         <p class="service-description"><?php echo $tampil['waktu'] ?></p>
                     </div>
                     <div class="each-service">
@@ -151,27 +361,12 @@ $tampil    = mysqli_fetch_array($hasil);
                         <h5 class="service-title">Nurtrisi</h5>
                         <p class="service-description"><?php echo $tampil['nutrisi'] ?> PPM</p>
                     </div>
-                    
+                    <div class="each-service">
+                        <h5 class="service-title">Hasil</h5>
+                        <p class="service-description"><?php echo $tampil['tes'] ?> </p>
+                    </div>
                 </div>
 
-                <div class="services-wrapper">
-                    <div class="each-service">
-                        <h5 class="service-title">Derajat Keanggotaan</h5>
-                    </div>
-                    <div class="each-service">
-                        <h5 class="service-title">Suhu</h5>
-                        <p class="service-description"><?php echo $tampil['das'] ?></p>
-                    </div>
-                    <div class="each-service">
-                        <h5 class="service-title">Kelembaban</h5>
-                        <p class="service-description"><?php echo $tampil['dak'] ?> </p>
-                    </div>
-                    <div class="each-service">
-                        <h5 class="service-title">Nurtrisi</h5>
-                        <p class="service-description"><?php echo $tampil['dan'] ?> </p>
-                    </div>
-                </div>
-                
                 <div class="services-wrapper">
                     <div class="each-service">
                         <h5 class="service-title">Kondisi Pertumbuhan</h5>
@@ -189,63 +384,33 @@ $tampil    = mysqli_fetch_array($hasil);
                         <h5 class="service-title">Nurtrisi</h5>
                         <p class="service-description"><?php echo $tampil['ktgn'] ?></p>
                     </div>
-                    
                 </div>
-                <!-- <!-- <div class="services-wrapper">
-                    <div class="each-service">
-                        <h5 class="service-title">Suhu</h5>
-                        <p class="service-description">Grafik harian</p>
-<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script> -->
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-<!-- <script type="text/javascript">
-
-Highcharts.chart('container', {
-
-title: {
-  text: 'Monitoring Suhu'
-},
-
-xAxis: {
-  tickInterval: 1,
-  type: 'logarithmic'
-},
-
-yAxis: {
-  type: 'logarithmic',
-  minorTickInterval: 0.1
-},
-
-tooltip: {
-  headerFormat: '<b>{series.name}</b><br />',
-  pointFormat: 'x = {point.x}, y = {point.y}'
-},
-
-series: [{
-  data: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
-  pointStart: 1
-}]
-});
-</script> -->
-
-                    </div>
-                </div> -->
-                <!-- <div class="services-wrapper">
-                    <div class="each-service">
-                        <h5 class="service-title">Kelembaban</h5>
-                        <p class="service-description">Grafik harian</p>
-                    </div>
-                </div>
                 <div class="services-wrapper">
                     <div class="each-service">
-                        <h5 class="service-title">Nurtrisi</h5>
-                        <p class="service-description">Grafik harian</p>
+                        <h5 class="service-title">Rekomendasi Tindakan</h5>
+                        <p class="service-description"><font color="#FF0000"><?php echo $tampil['rekomendasi'] ?></font></p>
                     </div>
                 </div>
-            </div> --> -->
+
+                <div class="services-wrapper">
+                    <div class="each-service">
+                        <h5 class="service-title">Grafik Suhu</h5>
+                        <!-- <p class="service-description">Grafik harian</p> -->
+                        <a class="btn btn-success btn-fill" href="../admin/grafik_suhu.php.">Lihat Grafik</a> 
+                    </div>
+                    <div class="each-service">
+                        <h5 class="service-title">Grafik Kelembaban</h5>
+                        <!-- <p class="service-description">Grafik harian</p> -->
+                        <a class="btn btn-success btn-fill" href="../admin/grafik_kelembaban.php.">Lihat Grafik</a> 
+                    </div>
+                    <div class="each-service">
+                        <h5 class="service-title">Grafik Nurtrisi</h5>
+                        <!-- <p class="service-description">Grafik harian</p> -->
+                        <a class="btn btn-success btn-fill" href="../admin/grafik_kelembaban.php.">Lihat Grafik</a> 
+                    </div>
+                </div>
+            </div> 
         </section>
         <!-- Services section ends here -->
         <!-- Portfolio section starts here -->
@@ -287,7 +452,7 @@ series: [{
 
             include '../config/koneksi.php';
 
-            $query = mysqli_query($konek, "SELECT * FROM tabel")or die(mysqli_error());
+            $query = mysqli_query($konek, "SELECT * FROM tabel ORDER BY id_tabel DESC")or die(mysqli_error());
                     if(mysqli_num_rows($query) == 0){ 
                       echo '<tr><td colspan="4" align="center">Tidak ada data!</td></tr>';    
                     }
@@ -297,9 +462,9 @@ series: [{
                       while($data = mysqli_fetch_array($query)){  
                 echo '<tr align="center">';
                 echo '<td>'.$data['waktu'].'</td>';
-                echo '<td>'.$data['kelembaban'].'</td>';
-                echo '<td>'.$data['suhu'].'</td>';
-                echo '<td>'.$data['nutrisi'].'</td>';
+                echo '<td>'.$data['suhu'].' °C</td>';
+                echo '<td>'.$data['kelembaban'].' %</td>';
+                echo '<td>'.$data['nutrisi'].' ppm</td>';
                 echo '<td>'.$data['das'].'</td>';
                 echo '<td>'.$data['dan'].'</td>';
                 echo '<td>'.$data['dak'].'</td>';

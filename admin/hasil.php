@@ -47,12 +47,12 @@ include '../config/koneksi.php';
                       while($data = mysqli_fetch_array($query)){  
                 echo '<tr align="center">';
                 echo '<td>'.$data['waktu'].'</td>';
-                echo '<td>'.$data['kelembaban'].'</td>';
                 echo '<td>'.$data['suhu'].'</td>';
+                echo '<td>'.$data['kelembaban'].'</td>';
                 echo '<td>'.$data['nutrisi'].'</td>';
                 echo '<td>'.$data['das'].'</td>';
-                echo '<td>'.$data['dan'].'</td>';
                 echo '<td>'.$data['dak'].'</td>';
+                echo '<td>'.$data['dan'].'</td>';
                 echo '<td>'.$data['ktgs'].'</td>';
                 echo '<td>'.$data['ktgk'].'</td>';
                 echo '<td>'.$data['ktgn'].'</td>';

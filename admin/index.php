@@ -78,11 +78,32 @@
               <p>Manajemen User</p>
             </a>
           </li>
+        
+          <li>
+            <a href="index.php?content=tanaman">
+              <i class="now-ui-icons education_paper"></i>
+              <p>Manajemen Tanaman</p>
+            </a>
+          </li> 
           
            <li> 
-            <a href="index.php?content=grafik">
-              <i class="now-ui-icons loader_gear"></i>
-              <p>grafik</p>
+            <a href="index.php?content=grafik_suhu">
+              <i class="now-ui-icons business_chart-bar-32"></i>
+              <p>Grafik Suhu</p>
+            </a>
+          </li> 
+
+          <li> 
+            <a href="index.php?content=grafik_kelembaban">
+              <i class="now-ui-icons business_chart-bar-32"></i>
+              <p>Grafik Kelembaban</p>
+            </a>
+          </li> 
+
+          <li> 
+            <a href="index.php?content=grafik_nutrisi">
+              <i class="now-ui-icons business_chart-bar-32"></i>
+              <p>Grafik Nutrisi</p>
             </a>
           </li> 
 
@@ -92,13 +113,6 @@
               <p>Dataset</p>
             </a>
           </li>
-
-          <!-- <li>
-            <a href="index.php?content=datatest">
-              <i class="now-ui-icons design-2_ruler-pencil"></i>
-              <p>Datatest</p>
-            </a>
-          </li> -->
 
           <li>
             <a href="index.php?content=penguji">
@@ -203,14 +217,23 @@
                                         include 'edit_setting.php';
 
                                     
+                                    if ($content=='grafik_suhu')
+                                        include 'grafik_suhu.php'; 
+                                    if ($content=='grafik_kelembaban')
+                                        include 'grafik_kelembaban.php';
+                                    if ($content=='grafik_nutrisi')
+                                        include 'grafik_nutrisi.php';
+                                    
 
-                                    if ($content=='grafik')
-                                        include 'grafik.php'; 
+                                    // if ($content=='grafik')
+                                    //     include 'grafik.php'; 
                                      
-                                    // if ($content=='edit_setting')
-                                    //     include 'edit_setting.php'; 
-                                    // if ($content=='edit_setting')
-                                    //     include 'edit_setting.php';
+                                    if ($content=='tanaman')
+                                        include 'tanaman.php'; 
+                                    if ($content=='jenis_tanaman')
+                                        include 'jenis_tanaman.php';
+                                    if ($content=='status_tanaman')
+                                        include 'status_tanaman.php';
 
 
 

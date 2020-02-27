@@ -20,7 +20,7 @@
                     <th>Suhu</th>
                     <th>Kelembaban</th>
                     <th>Nutrisi</th>
-                    <th>Minggu</th>
+                    <!-- <th>Minggu</th> -->
                     <th>Kondisi</th>
                     <th></th>
                 </thead>
@@ -43,7 +43,7 @@
                 echo '<td>'.$data['suhu'].'</td>';
                 echo '<td>'.$data['kelembaban'].'</td>';
                 echo '<td>'.$data['nutrisi'].'</td>';
-                echo '<td>'.$data['minggu'].'</td>';
+                // echo '<td>'.$data['minggu'].'</td>';
                 echo '<td>'.$data['kondisi'].'</td>';
                 // echo '<td  width="20"><a data-toggle="tooltip" data-placement="left" title="Delete" href=../config/proses_delete_dataset1.php?id_user='.$data[''].'><i class="now-ui-icons ui-1_simple-remove"></i></a></td>';
                 echo '</tr>';
@@ -81,14 +81,14 @@
                 <label>Nutrisi</label>
                 <input type="text" class="form-control" placeholder="Nutrisi" name="nutrisi" required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>Minggu</label>
                 <SELECT class="form-control" name="minggu">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                 </SELECT>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label>Kondisi</label>
                 <input type="text" class="form-control" placeholder="Kondisi" name="kondisi" required>

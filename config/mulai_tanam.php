@@ -6,11 +6,12 @@
 
 	$user			= $_POST["user"];
 	$nama		   	= $_POST["nama"];
+	$jenis			= $_POST["jenis"];
 	$mulai	   		= date("Y-m-d");
 	$selesai  		= date('Y-m-d', strtotime('+21 days', strtotime($mulai)));
 	$status			= 1;
 	
-	$insert			= "INSERT INTO tanaman VALUES ('','$user','$nama','$mulai','$selesai', '$status')";
+	$insert			= "INSERT INTO tanaman VALUES ('','$user','$jenis','$nama','$mulai','$selesai', '$status')";
 	//die(var_dump($insert));
 	$simpan			= mysqli_query($konek, $insert)or die(mysqli_error($konek));
 

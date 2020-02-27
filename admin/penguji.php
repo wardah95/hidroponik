@@ -52,7 +52,10 @@ include '../config/koneksi.php';
                 <td colspan="3"><b>Monitorinng</b></td>
                 <td colspan="3"><b>Derajat Keanggotaan</b></td>
                 <td colspan="3"><b>Katagori</b></td>
-                <td rowspan="2"><b>Hasil</b></td>
+                <td colspan="3"><b>Rumus</b></td>
+                <td colspan="3"><b>Perhitungan</b></td>
+                <td rowspan="2"><b>Rekomendasi</b></td>
+                <td rowspan="2"><b>Kondisi</b></td>
                 </tr>
                 <tr>
                 <td><b>Suhu</b></td>
@@ -64,7 +67,12 @@ include '../config/koneksi.php';
                 <td><b>Suhu</b></td>
                 <td><b>Kelembaban</b></td>
                 <td><b>Nutrisi</b></td>
-                <td><b></b></td>
+                <td><b>Suhu</b></td>
+                <td><b>Kelembaban</b></td>
+                <td><b>Nutrisi</b></td>
+                <td><b>Suhu</b></td>
+                <td><b>Kelembaban</b></td>
+                <td><b>Nutrisi</b></td>
                 </tr>
             </thead>
             <tbody>
@@ -73,7 +81,7 @@ include '../config/koneksi.php';
 
             include '../config/koneksi.php';
 
-            $query = mysqli_query($konek, "SELECT * FROM hasil_fuzzy")or die(mysqli_error());
+            $query = mysqli_query($konek, "SELECT * FROM hasil_fuzzy ORDER BY id_hasil DESC")or die(mysqli_error());
                     if(mysqli_num_rows($query) == 0){ 
                       echo '<tr><td colspan="4" align="center">Tidak ada data!</td></tr>';    
                     }
@@ -91,6 +99,13 @@ include '../config/koneksi.php';
                 echo '<td>'.$data['ktgs'].'</td>';
                 echo '<td>'.$data['ktgk'].'</td>';
                 echo '<td>'.$data['ktgn'].'</td>';
+                echo '<td>'.$data['rmss'].'</td>';
+                echo '<td>'.$data['rmsk'].'</td>';
+                echo '<td>'.$data['rmsn'].'</td>';
+                echo '<td>'.$data['hitungs'].'</td>';
+                echo '<td>'.$data['hitungk'].'</td>';
+                echo '<td>'.$data['hitungn'].'</td>';
+                echo '<td>'.$data['rekomendasi'].'</td>';
                 echo '<td>'.$data['hasil'].'</td>';
                 echo '</tr>';  
                       }
